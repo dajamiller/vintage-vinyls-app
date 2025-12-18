@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MySqlProductDaoTest extends BaseDaoTestClass
 {
@@ -25,24 +27,40 @@ class MySqlProductDaoTest extends BaseDaoTestClass
     {
         // arrange
         int productId = 1;
+
         Product expected = new Product()
         {{
             setProductId(1);
-            setName("Smartphone");
-            setPrice(new BigDecimal("499.99"));
+            setName("The Beatles - Abbey Road Vinyl");
+            setPrice(new BigDecimal("29.99"));
             setCategoryId(1);
-            setDescription("A powerful and feature-rich smartphone for all your communication needs.");
-            setSubCategory("Black");
+            setDescription("Classic Beatles album remastered on 180-gram vinyl.");
+            setSubCategory("Rock");
             setStock(50);
-            setFeatured(false);
-            setImageUrl("smartphone.jpg");
+            setFeatured(true);
+            setImageUrl("abbey-road-vinyl.jpg");
         }};
 
         // act
         var actual = dao.getById(productId);
 
         // assert
-        assertEquals(expected.getPrice(), actual.getPrice(), "Because I tried to get product 1 from the database.");
+        assertEquals(expected.getProductId(), actual.getProductId(), "ID should match");
+        assertEquals(expected.getName(), actual.getName(), "Product 1 Name should match");
+    }
+
+    @Test
+    public void search_shouldReturn_theMinimumAndMaximumPriceProducts() {
+        //arrange
+        BigDecimal minPrice = new BigDecimal("29.99");
+        BigDecimal maxPrice = new BigDecimal("100.00");
+
+        //act
+        var products = dao.search(null,minPrice,maxPrice,null);
+
+        //assert
+        assertNotNull(products, "Products should not be null");
+        assertTrue(!products.isEmpty(), "Search should not be empty.");
     }
 
 }
