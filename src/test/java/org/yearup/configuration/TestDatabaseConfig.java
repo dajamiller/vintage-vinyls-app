@@ -32,7 +32,7 @@ public class TestDatabaseConfig
     public TestDatabaseConfig(@Value("${datasource.url}") String serverUrl,
                               @Value("${datasource.username}") String username,
                               @Value("${datasource.password}") String password,
-                              @Value("${datasource.testdb}") String testDb)
+                              @Value("${datasource.testDb}") String testDb)
     {
         this.serverUrl = serverUrl;
         this.testDb = testDb;

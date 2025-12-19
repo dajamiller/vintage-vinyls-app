@@ -4,11 +4,11 @@ USE sys;
 # Target DBMS:           MySQL                                           #
 # Project name:          RecordShop                                      #
 # ---------------------------------------------------------------------- #
-DROP DATABASE IF EXISTS recordshop;
+DROP DATABASE IF EXISTS recordshop_test;
 
-CREATE DATABASE IF NOT EXISTS recordshop;
+CREATE DATABASE IF NOT EXISTS recordshop_test;
 
-USE recordshop;
+USE recordshop_test;
 
 # ---------------------------------------------------------------------- #
 # Tables                                                                 #

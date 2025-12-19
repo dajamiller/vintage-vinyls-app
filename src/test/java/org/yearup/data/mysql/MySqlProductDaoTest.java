@@ -1,15 +1,13 @@
 package org.yearup.data.mysql;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.yearup.models.Product;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MySqlProductDaoTest extends BaseDaoTestClass
 {
@@ -52,14 +50,16 @@ class MySqlProductDaoTest extends BaseDaoTestClass
     public void search_shouldReturn_theMinimumAndMaximumPriceProducts() {
         //arrange
         BigDecimal minPrice = new BigDecimal("29.99");
-        BigDecimal maxPrice = new BigDecimal("100.00");
+        BigDecimal maxPrice = new BigDecimal("199.99");
 
         //act
         var products = dao.search(null,minPrice,maxPrice,null);
 
         //assert
         assertNotNull(products, "Products should not be null");
-        assertTrue(!products.isEmpty(), "Search should not be empty.");
+        assertFalse(products.isEmpty(), "Search should not be empty.");
+        assertEquals(products.get(0).getPrice(), minPrice, "Price should match");
+        assertEquals(products.get(0).getPrice(), maxPrice, "Price should match");
     }
 
 }

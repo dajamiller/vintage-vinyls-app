@@ -77,12 +77,12 @@ public class CategoriesController
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable int id)
     {
+        var category = categoryDao.getById(id);
+        if(category == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         try
         {
-            var category = categoryDao.getById(id);
 
-            if(category == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
             categoryDao.delete(id);
         }
